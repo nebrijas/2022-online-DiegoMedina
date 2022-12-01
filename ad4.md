@@ -3,4 +3,4 @@
 
 ***
 
-Link al archivo notebook ipynb [Link de notebook](ad4 Diego Medina.ipynb)
+Link al archivo notebook ipynb [Link de notebook](ad4.md.ipynb)
