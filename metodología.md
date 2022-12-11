@@ -238,4 +238,4 @@ Aquí es posible ver la [ad4.](ad.4)
 
 ***
 
-La materia de Periodismo de datos II probó ser una de las más desafiantes, pero, también fue una de las más importantes de este máster, ya que me dió un enfoque diferente de lo que es el periodismo y me enseñó herramientas que me diferenciarán de otros profesionales, me permiten hacer un trabajo mucho más juicioso en menor tiempo.
+Estabmateria de Periodismo de datos II probó ser una de las más desafiantes, pero, también fue una de las más importantes de este máster, ya que me dió un enfoque diferente de lo que es el periodismo y me enseñó herramientas que me diferenciarán de otros profesionales, me permiten hacer un trabajo mucho más juicioso en menor tiempo.
