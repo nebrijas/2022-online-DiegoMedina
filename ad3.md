@@ -8,6 +8,9 @@ La idea princicpal de este ejercicio es extraer algunos titulares especificos de
 
 ## Actividad 3
 
+Primeros pasos: Se relizó la instalación de las librerias
+
+
 ```python
 !pip install requests bs4 pandas termcolor
 ```
@@ -38,7 +41,7 @@ La idea princicpal de este ejercicio es extraer algunos titulares especificos de
     Installing collected packages: bs4
     Successfully installed bs4-0.0.1
     
-
+Tras la instalación me enfoqué en importar las librerias instaladas y las nativas de Python
 
 ```python
 import requests
@@ -51,14 +54,13 @@ import pandas as pd
 from termcolor import colored
 ```
 
-Ahora vamos a llamar a la página de resultados.
+Despues de importalras, realicé la primer petición GET a la URL "https://resultados.elpais.com", utilizando la libreria requests
 
 
 ```python
 resultados = []
 ```
 
-La librería requests es la que nos ayudará a encontrar los resultados. La URL de donde vamos a descargar la información será la  del El País y en ella nos cercioramos de que no haya error.
 
 
 ```python
@@ -69,7 +71,7 @@ if (req.status_code != 200):
 soup = BeautifulSoup(req.text, 'html.parser')
 ```
 
-Ahora le pedimos a la librería BeautifulSoup, que es una biblioteca de la cual podemos obtener datos en formato HTML y XML, que encuentre y que luego imprima la información que le pedimos, en este caso todas las etiquetas "h2".
+Luego de obtener el texto de la URL dada, procedo a utilizar la libreria BeatifulSoup para realizar el web scraping, del HTML entregado por la libreria me encargo de buscar los tags H2 y mostrarlos en consola
 
 
 ```python
@@ -222,7 +224,7 @@ for h2 in tags:
     Así era el final original (y emotivo) de The Walking Dead que se rodó y se cambió a última hora
     
 
-Ahora vamos a hacer un segundo pedido a otra página de El País, la sección internacional. Esta la hacemos con la librería request que se usa para hacer solicitudes y peticiones a la página de la que extraeremos datos. De nuevo nos cercioramos de que no hayan errores.
+El codigo se enfocó en realizar varias peticiones a distintas URLs, continuo a mostrar cada peticion realizada por el codigo.
 
 
 ```python
@@ -233,14 +235,12 @@ if (req.status_code != 200):
 soup2 = BeautifulSoup(req2.text, 'html.parser')
 ```
 
-Ahora le pido todos los "h2".
 
 
 ```python
 tags = soup2.findAll("h2")
 ```
 
-Ahora le pedimos que los imprima. El jQuery append() nos permite añadir o insertar contenido al final de un elemento seleccionado.
 
 
 ```python
@@ -249,51 +249,49 @@ for h2 in tags:
     resultados.append(h2.text)
 ```
 
-    La doble respuesta de China a las protestas: acelerar la vacunación de los mayores y descabezar las manifestaciones 
-    La OTAN redobla su alerta sobre una China en ebullición
-    Hojas en blanco contra el cerrojo de la política de cero covid en China
+    Bruselas promueve un tribunal especial para juzgar a la cúpula de Putin por sus crímenes en Ucrania
+    Bruselas exige congelar fondos europeos a Hungría por las violaciones del Estado de derecho
+    Hungría acelera las medidas anticorrupción para rebajar la magnitud del castigo europeo
+    Autocracia en crisis
     “¿De qué color es el hambre, mamá?”
     China: una protesta nacional
     Publicar no es un delito
     La vida bajo los bombardeos rusos
-    Democracias a la defensiva
-    El relator de la ONU para los derechos de los migrantes: “Es lamentable que no se haya aclarado la tragedia de Melilla cinco meses después”
+    China relaja las medidas anticovid en Guangzhou para frenar nuevas protestas
+    Muere el expresidente de China Jiang Zemin
+    La doble respuesta de China a las protestas: acelerar la vacunación de los mayores y descabezar las manifestaciones 
+    La selección del jurado popular marca el inicio del juicio por los atentados yihadistas de 2016 en Bruselas
+    La OTAN redobla su alerta sobre una China en ebullición
+    La tragedia de los menores en zona de guerra: 230 millones de niños viven en los conflictos más cruentos del mundo
+    Macron viaja a Washington para “resincronizarse” con Biden ante el impacto de la guerra en Ucrania
     Rusia culpa a EE UU de la cancelación del encuentro bilateral sobre control de armas nucleares
+    Hojas en blanco contra el cerrojo de la política de covid cero en China
     Rishi Sunak anuncia el fin de la “era dorada” en la relación con China
     Los medios reclaman el fin del abuso del sistema judicial del Reino Unido por parte de los oligarcas rusos
-    La alta abstención marca un nuevo escenario político en Cuba    
-    La granja de los horrores de Ucrania: 2.000 vacas muertas y un reguero de minas que explican la devastación de la agricultura en el país
-    Rusia cancela el primer encuentro previsto con EE UU desde el inicio de la guerra de Ucrania 
-    China responde a las protestas con un fuerte despliegue de seguridad en Pekín y Shanghái
-    Hartazgo, estragos económicos y accidentes mortales: claves para entender las protestas en China
-    Las protestas se extienden en China contra la política de covid cero
-    La OTAN acusa a Putin de usar el invierno como arma de guerra contra Ucrania
+    La hija de Hugo Chávez califica de “grotesco” un video oficialista en homenaje a su padre
+    Nueva York internará en psiquiátricos contra su voluntad a las personas sin hogar con trastornos mentales graves
+    El líder del grupo ultraderechista Oath Keepers, culpable de sedición por el asalto al Capitolio
     Estados Unidos prepara una ley para evitar una huelga de ferrocarriles en vísperas de Navidad
     “¿De qué color es el hambre, mamá?”
-    Venezuela anuncia un crecimiento económico de 18 puntos del PIB para 2022
-    Una banda secuestra durante horas un hospital de Ecuador
-    Ideas neonazis y víctima de acoso: así es el joven que asesinó a cuatro personas en dos colegios de Brasil  
+    
     
 
-Ahora hacemos el ejercicio con la página de opinión, igual mirando que no haya error y solicitando los "h2".
 
 
 ```python
-req3 = requests.get("https://elpais.com/opinion")
+req3 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup3 = BeautifulSoup(req3.text, 'html.parser')
-
+soup3 = BeautifulSoup(req2.text, 'html.parser')
 ```
+
 
 
 ```python
-tags = soup3.findAll("h2")
-
+tags = soup2.findAll("h2")
 ```
 
-Ya pedimos los títulos h2, ahora le pedimos que los imprima.
 
 
 ```python
@@ -302,100 +300,50 @@ for h2 in tags:
     resultados.append(h2.text)
 ```
 
+    Autocracia en crisis
+    Planes para frenar el suicidio
+    La celebración de dar gracias
+    Brasil en transición
+    ‘A compás’
+    Cadáveres exquisitos
+    Pedirle cuentas a un pijo
+    Despolitizar politizando
+    Entender al otro empieza a ser intolerable
+    Luis Enrique y Mariano Rajoy ante Qatar
+    Argentina, 1985
     Síntomas de rebeldía en China
     Las familias también cambian
-    Millones de razones de cambio en China
     Ciclos conservadores
-    ‘A compás’
-    En tiempos de confusión
-    La derecha y el Derecho
-    Uno es la música que escucha 
-    Enzensberger y la distancia crítica
-    Sánchez al frente de la Internacional Socialista 
-    La UE y la inmigración
-    Delitos contra la Constitución: rebelión y sedición 
-    Publicar no es un delito
-    La tertuliana de ultraderecha y el bulo tránsfobo contra Begoña Gómez, la mujer de Pedro Sánchez
-    Lengua migrante 
+    Millones de razones de cambio en China
     El Roto
     Flavita Banana
     Riki Blanco
     Peridis
     Sciammarella
     Envía tu carta
+    Así funciona la corrupción
     Mucho texto
     El desprestigio de la sanidad pública va calando
-    Lucha feminista no solo en días mundiales
     Noticias positivas en tiempos caóticos
     Bomba nuclear en Barcelona
     Una maldita lista en tiempos airados
     El defensor del lector contesta
-    
-
-Ahora hacemos el pedido 4 con la sección España.
 
 
 ```python
-req4 = requests.get("https://elpais.com/espana/")
+req4 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup4 = BeautifulSoup(req4.text, 'html.parser')
+soup4 = BeautifulSoup(req2.text, 'html.parser')
 ```
-
-Pedimos que encuentre los "h2" y luego que los imprima.
-
-tags = soup4.findAll("h2")
 
 
 
 ```python
-for h2 in tags:
-    print(h2.text)
-    resultados.append(h2.text)    
+tags = soup2.findAll("h2")
 ```
 
-    El Congreso rechaza la revisión de la ley del ‘solo sí es sí’
-    El Constitucional acuerda apremiar al Poder Judicial para que nombre a sus dos magistrados
-    Pedro Sánchez renueva el Tribunal Constitucional con el exministro de Justicia Juan Carlos Campo
-    Alberto Núñez Feijóo, nacionalista
-    La caverna
-    Aunque nos tiemble la barbilla
-    Orfandad representativa
-    Otra forma de violencia política
-    Documental | Tragedia en la frontera de Melilla: el papel de Marruecos y España en las muertes del 24-J
-    El Supremo avala reducir las penas cuando lo permita la ‘ley del solo sí es sí’, pero insta a analizar cada a caso
-    Interior insiste en que no hubo ningún muerto en suelo español en la tragedia de Melilla
-    El Gobierno se defiende en medio de la tormenta: “El Constitucional no es un órgano judicial”
-    La elección de Juan Carlos Campo para el Tribunal Constitucional, una vida entre el juzgado y la política
-    La controversia de los nombramientos del Ejecutivo para el Constitucional puede llevar al choque de trenes entre instituciones
-    Vox abandona el pleno del Congreso tras exigirle la Presidencia retirar una acusación de “filoetarras”
-    Adolfo Suárez Illana abandona la política y renuncia a su acta de diputado del PP 
-    Agonía a ambos lados de la frontera de Melilla
-    Salvamento Marítimo rescata a tres polizones en Las Palmas que viajaron 11 días en el timón de un petrolero
-    El PP agita un adelanto electoral en la Comunidad Valenciana 
-    Hay casi 4.000 cervezas artesanas españolas. ¿Cómo probarlas todas?
-    El cambio hacia un consumo sostenible empieza por los pies
-    
-
-Por último hacemos el mismo ejercicio con la sección economía.
-
-
-```python
-req5 = requests.get("https://elpais.com/economia/")
-# Si el estatus code no es 200 no se puede leer la página
-if (req.status_code != 200):
- raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup5 = BeautifulSoup(req5.text, 'html.parser')
-```
-
-Pedimos que la libería "soup" encuentre todos los tags "h2" y que los imprima.
-
-
-```python
-tags = soup5.findAll("h2")
-
-```
 
 
 ```python
@@ -404,49 +352,94 @@ for h2 in tags:
     resultados.append(h2.text)
 ```
 
-    La inflación se modera por cuarto mes consecutivo y se sitúa en el 6,8% en noviembre
-    Los bancos reabren su convenio y pactan una subida salarial del 4,5% en 2023
-    Una autopista para dejarse llevar
-    Los agujeros legales de las finanzas sostenibles: así acaba el dinero de los fondos de inversión más verdes en empresas contaminantes
+    Todos los partidos coinciden en acusar a Marlaska de mentir y engañar en su versión sobre la tragedia de Melilla el 24-J
+    Nueva trifulca en el Congreso: Irene Montero pasa de atacada a provocadora
+    El embajador de Ucrania y una empresa de armas reciben sendas cartas con sustancias deflagrantes
+    Alberto Núñez Feijóo, nacionalista
+    La caverna
+    Aunque nos tiemble la barbilla
+    Orfandad representativa
+    Otra forma de violencia política
+    Acnur cuestiona la legalidad de las devoluciones a Marruecos durante la tragedia de Melilla 
+    El Constitucional rechaza celebrar ya un pleno para examinar a los dos magistrados designados por el Gobierno
+    Los ciberataques más peligrosos a las redes públicas casi se duplican en España durante el último año
+    Lambán afirma que “mejor le habría ido a España” si Javier Fernández hubiese liderado al PSOE
+    Los tres polizones llegados a Gran Canaria piden asilo 
+    Visto para sentencia el juicio por malversación a un expresidente socialista de la Diputación de Valencia
+    La escasez de pruebas convierte en “fracaso” la primera gran causa contra los reyes del hachís
+    Pedro Sánchez renueva el Tribunal Constitucional con el exministro de Justicia Juan Carlos Campo
+    Documental | Tragedia en la frontera de Melilla: el papel de Marruecos y España en las muertes del 24-J
+    El Supremo avala reducir las penas cuando lo permita la ‘ley del solo sí es sí’, pero insta a analizar cada a caso
+    Interior insiste en que no hubo ningún muerto en suelo español en la tragedia de Melilla
+    Hay casi 4.000 cervezas artesanas españolas. ¿Cómo probarlas todas?
+    El cambio hacia un consumo sostenible empieza por los pies
+
+
+```python
+req5 = requests.get("https://elpais.com/internacional")
+# Si el estatus code no es 200 no se puede leer la página
+if (req.status_code != 200):
+ raise Exception("No se puede hacer Web Scraping en"+ URL)
+soup5 = BeautifulSoup(req2.text, 'html.parser')
+```
+
+
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
+for h2 in tags:
+    print(h2.text)
+    resultados.append(h2.text)
+```
+
+    Breton exige a Musk que refuerce su política de moderación de contenidos y desinformación en Twitter
+    El BBVA gana a Merlin el arbitraje sobre la Operación Chamartín
+    España, en el podio de países de la OCDE con mayor alza de la presión fiscal en una década
+    Arabia Saudí encarga otros cinco buques de guerra a Navantia 
     La moda de la sostenibilidad
     Impuesto erróneo a la banca
     Sufrimientos evitables
     El coste de la vida
     La intermediación del ahorro y su evolución
-    La inflación en Alemania se modera por primera vez desde julio y regresa al 10%
-    El Banco de España prevé que la economía siga creciendo este trimestre
-    Los bancos extranjeros pagarán unos 300 millones por el impuesto extraordinario al sector
-    El 20% de los trabajadores cobra menos que el salario mínimo
-    Hacienda gana contra ‘El Rubius’: la justicia dice que pagó menos impuestos de lo que debía 
-    Primark invertirá 100 millones para crecer en España y crear 1.000 empleos en dos años
-    La moda de la sostenibilidad
-    La CNMV advierte de que las criptomonedas están “vacías de contenido y son ‘inútiles” como inversión
-    El proyecto para reindustrializar Nissan sale adelante pero consigue solo la mitad de los avales
-    EasyJet reduce un 80% sus pérdidas anuales tras el mejor verano de su historia
-    Así quedarán las pensiones en 2023: las prestaciones máximas superarán los 3.000 euros brutos por primera vez
+    El gigante chino Alibaba lanza en España una nueva plataforma de comercio electrónico
+    Powell sugiere que la Reserva Federal frenará el ritmo de subidas de tipos en diciembre
+    Los ingresos tributarios hasta octubre ya superan lo recaudado en todo 2021
+    La inflación en la zona euro se frena por primera vez en 17 meses con España como el país donde menos suben los precios
+    OHLA ingresa un 15% más pero pierde 88 millones por ajustes contables 
+    Alemania suaviza su ley de inmigración para atraer trabajadores extranjeros de fuera de la UE
+    Las renovables y el gas dan un respiro en la factura de la luz: noviembre fue el mes menos caro desde el inicio de la crisis
+    Telefónica subirá en enero todas las tarifas de fibra y móvil hasta 13 euros
+    Mutua entra en el negocio del ‘carsharing’ en Madrid con Voltio
+    La Inspección considera que Ryanair vulneró el derecho a huelga de sus trabajadores
+    La CNMC congela las tarifas aeroportuarias para 2023
     Madrid, la nueva Miami: así se han hecho con la capital los ricos latinoamericanos
     Si no tiene ahorros, esta es una de las pocas alternativas para comprar casa
     Los efectos de una economía de andar por casa
     Caballos al galope: un negocio con un impacto económico de 7.400 millones de euros
     Los impuestos que se necesitan para construir la sociedad del futuro
-    La CNMC congela las tarifas de Aena para 2023 ante las dudas sobre la evolución del tráfico
-    Escrivá propone elevar a 30 años el periodo para calcular la pensión y descartar los dos peores ejercicios
-    Tecnológicas, dólar y bonos tocan suelo tras un año en caída libre
-    El método de Antonio Resines para afrontar cambios en las empresas
+    A quién perjudica y a quién beneficia el plan de Escrivá para calcular las futuras pensiones
+    ING lanza la venta de Fintonic, la primera 'fintech' con licencia del Banco de España
+    ¿Quiere cobrar dividendo antes de fin de año? Las cotizadas reparten 2.500 millones y éstos son algunos pagos
+    Pulso España-Francia por el sobrecoste del 50% de la interconexión eléctrica submarina
     Por primera vez un juez declara nulo un contrato de alquiler por aplicación de la perspectiva de género
     Visitas a centros de acogida y muchas horas de estudio: así se forman los jueces en materia de género
     La justicia obliga a Iberia a controlar el peso de las maletas para que los azafatos no se lesionen
+    ‘Phishing’, ‘malware’ o ‘ransomware’: el reto de formar en ciberseguridad tras la pandemia
     La difícil tarea de recuperar el talento investigador que un día hizo las maletas
     Descubre las formaciones de marketing ‘online’ más buscadas (y económicas) de 2023
-    La quinta edición de EnlightED aborda los retos del aprendizaje y la educación en la era digital  
     Logística de ida y vuelta, cuando la solución está en reciclar menos y reutilizar más
     Logística y digitalización, el manual de supervivencia para pymes
     Empleados satisfechos, empresas de éxito
     Diez claves del bienestar corporativo para empresas de éxito
     Las aventuras de un par de calcetines que dan empleo a todo un pueblo
     Cultura financiera como punto de partida para volver a empezar
+    Cómo aplicar el ‘design thinking’ a cualquier negocio
     Las soluciones digitales que necesita mi negocio 
-    Las fórmulas de financiación más adecuadas para mi negocio
     Alexia Putellas, un Balón de Oro a base de “esfuerzo, constancia, disciplina y saber reinventarse”
     El método Muñoz para triunfar en cada reto que se propone
     ¿Por qué muchos inversores están volviendo a confiar en Japón?
@@ -460,156 +453,601 @@ for h2 in tags:
     ‘La mirada del paciente’: historias sin filtro detrás de las personas
     Cómo conseguir ayudas a la digitalización para autónomos y pymes con Kit Digital
     Un brindis con vino español por la sostenibilidad, la economía y el empleo
-    
-
-Ahora, habiendo ejemplificado cómo se hace paso a paso, hacemos el requerimiento para todas las demás secciones.
 
 
 ```python
-req6 = requests.get("https://elpais.com/sociedad/")
+req6 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup6 = BeautifulSoup(req6.text, 'html.parser')
+soup6 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup6.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    
+  ```  
+    PSOE y Unidas Podemos aplazan el debate sobre la autodeterminación de género en la ‘ley trans’ 
+    Un plan de choque de 356 millones para intentar salvar Doñana de su creciente declive 
+    España gana medio millón de habitantes en una década, pero siete de cada 10 municipios pierden población 
+    Qué es la cultura de la violación de la que habla Irene Montero
+    La caja de resonancia de la angustia vital
+    Para acabar con la violencia de género, necesitamos más mujeres en posiciones de poder 
+    Los secretos atronadores del secretario general
+    El Senado de Estados Unidos aprueba una ley para blindar el matrimonio homosexual
+    El retraso en resolver contratos predoctorales deja en el limbo a cientos de jóvenes: “Es la desesperación” 
+    Bruselas quiere que todos los embalajes de la UE sean reciclables para 2030
+    Qué es la cultura de la violación de la que habla Irene Montero
+    ¿Adiós a los anuncios con coches para niños y cocinas para niñas? Los jugueteros pactan desterrar los estereotipos sexistas en la publicidad
+    Portugal, el secreto de un país sin bicicletas que se convirtió en el mayor fabricante europeo
+    Claves de la ley de trata: centrada en las víctimas y protección integral
+    El estrés académico lastra el aprendizaje de los niños de nivel socioeconómico bajo
+    Pilar Bonet dedica a los periodistas que cubren la guerra de Ucrania el premio Francisco Cerecedo de periodismo 
+    Vila-real concede la medalla de oro al colegio de los carmelitas dos meses después de destaparse un caso de abusos
+    Cinco jóvenes procesados en Murcia por una agresión sexual en grupo que además grabaron y difundieron por redes sociales 
+    Unas gafas que cambian la forma de ver el mundo
+    Cambia tu relación con los papeles de la cocina
+    Social, clínica y en primera persona. Tres visiones del VIH 
+    Enfermería, los profesionales de las ‘curas invisibles’ en las personas con VIH
+    Sostenibilidad y... ¡acción! 
+    La huella de carbono, el rastro que marca el futuro del planeta
+    Psoriasis, en las profundidades de la piel
+    Contar para sanar
+    Qué hacer con tres millones de colchones
+    La nueva revolución agrícola 
+    Lo lejos que se puede llegar con otra metodología educativa 
+    Cuando el empleo se convierte en la mejor terapia 
+    A solas con la obesidad
+    Freno y marcha atrás en la obesidad infantil
+    “La ópera, como la naturaleza, está viva, y debe evolucionar para ser eterna” 
+    ¿Hasta dónde puede llegar el ser humano? El viaje a la oscuridad más absoluta
+    El futuro de la alimentación se encuentra en el agua
+    Acuicultura: la importancia de comer ‘azul’ para vivir en verde
+    El futuro de la aviación verdeEn busca de la eficiencia energética en los aeropuertos
+    Un día en el servicio de ayuda a domicilio
+    Trabajadores esenciales. Los que nunca paran
+    Consejos para alimentar correctamente a los animales de compañía
+    Cuidados y necesidades de perros y gatos en su etapa sénior
+    Combatir el desperdicio alimentario desde la cesta de la compra
+    Kilómetro cero para llenar la despensa
+    Acompañamiento, el modelo alternativo de acogida de refugiados
+    El metro como refugio. De los andenes de Madrid en 1936 a los de Kiev en 2022
+    Yogures con menos azúcar, paso firme hacia la alimentación infantil del futuro
+    Invisible, pero vital: el ciclo de las aguas subterráneas
+    La bomba de calor, el sistema de climatización más sostenible y eficiente
+```
 
-req7 = requests.get("https://elpais.com/educacion/")
+```python
+req7 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup7 = BeautifulSoup(req7.text, 'html.parser')
+soup7 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup7.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    El retraso en resolver contratos predoctorales deja en el limbo a cientos de jóvenes: “Es la desesperación” 
+    El estrés académico lastra el aprendizaje de los niños de nivel socioeconómico bajo
+    ‘Phishing’, ‘malware’ o ‘ransomware’: el reto de formar en ciberseguridad tras la pandemia
+    La escuela concertada matricula a la mitad del alumnado desfavorecido que le correspondería
+    El Gobierno dará un subsidio de 400 euros anuales a los alumnos con necesidades especiales
+    La expulsión de una clase en un colegio de Palma tras colocar una bandera de España deriva en graves amenazas a una profesora 
+    Pobreza en el Olimpo académico de EE UU: la huelga en la Universidad de California es ya una de las más grandes del país
+    El primer Mundial en horario lectivo y con ‘smartphones’ se juega también en los institutos
+    El cabecilla de los cánticos machistas del Elías Ahuja vuelve al colegio mayor pese a anunciarse su expulsión definitiva
+    La nueva ley de enseñanzas artísticas endurecerá los requisitos para ser profesor y hará más homogéneas las pruebas de acceso del alumnado
+    Una madre denuncia insultos homófobos a su hija en un colegio de Madrid: “Su tutor nos dijo que tenemos que respetar la opinión de los demás”
+    Evaluar competencias
+    La Selectividad a los 50: ¿cirugía mayor o estiramiento facial?
+    La libertad de elección de centro educativo y los cheques escolares en Madrid
+    Selectividad: Desatar el nudo gordiano
+    El nuevo sistema para evaluar los conocimientos digitales de los profesores valdrá en toda España
+    Ofrecer comedor gratis en todos los colegios públicos es “alcanzable y urgente”: costaría 1.664 millones al año, según la ONG Educo  
+    Una fórmula para que la escuela pública compita mejor con la concertada
+    La pérdida de alumnos por el descenso de la natalidad está afectando con más fuerza a la escuela pública que a la concertada
+    La disparidad de resultados entre autonomías en la EVAU se origina en la escuela, no en el examen 
+    Las autonomías del PP critican la nueva Selectividad porque no prevé un examen único para todo el Estado
+    La escalada vertiginosa de notas en Bachillerato: los sobresalientes de los que llegan a Selectividad se doblan en seis años
+    El caso de Georgia, en EE UU: becar sin importar la renta agranda la desigualdad
+    El techo de cristal del grado medio de FP: candidatos demasiado preparados se quedan con los puestos
+    César Rendueles: “Hay universidades privadas que son como academias de conducir con pretensiones”
+    La fuga de miles de médicos agrava el déficit de especialistas en España
+    Jóvenes tutelados en la Universidad: “Tu pasado no tiene por qué condicionar tu futuro”
+    Si tu familia está desahogada estudiarás Medicina y dobles grados, si no, Óptica o Educación 
+    Pon nombre a lo que te pasa para sentirte mejor
+    Volver a empezar
+    Borges, 'Funes el memorioso' y la neurona Jennifer Aniston
 
-req8 = requests.get("https://elpais.com/clima-y-medio-ambiente/")
+
+```python
+req8 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup8 = BeautifulSoup(req8.text, 'html.parser')
+soup8 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup8.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    Portugal, el secreto de un país sin bicicletas que se convirtió en el mayor fabricante europeo
+    Bruselas quiere que todos los embalajes de la UE sean reciclables para 2030
+    La misteriosa llegada del pájaro parecido a un pingüino que preocupa en las costas mediterráneas
+    Alex Rafalowicz, abogado: “Los combustibles fósiles son una amenaza existencial como las armas nucleares”
+    El problema con los suelos: un mundo vivo, desconocido y muy desprotegido
+    Los agujeros legales de las finanzas sostenibles: así acaba el dinero de los fondos de inversión más verdes en empresas contaminantes
+    Gobierno y Junta chocan por Doñana mientras se agrava el deterioro ecológico 
+    Linces y águilas imperiales se refugian en fincas privadas que se alían con conservacionistas  
+    ¿Podré matar a una rata que entre en mi casa? Claves de la reforma del Código Penal para castigar más el maltrato animal
+    El precio del Ave Madrid-Barcelona cae un 43% pero sube un 14% en las líneas sin competencia 
+    El plan del Gobierno para las reservas de agua mantiene intacta la alta presión del regadío
+    El cambio climático perjudica su salud
+    Por qué comer animales puede ayudar a luchar contra el cambio climático
+    Por qué hay que dejar de comer animales para luchar contra el cambio climático
+    Bombas de carbono 
+    Crisis de los insectos: esto no es un armagedón sino una debacle provocada por los humanos
+    El quebrantahuesos reconquista los cielos 
+    Un año de crisis climática sin fin
+    Ríos imposibles: las 171.000 barreras que rompen el curso de agua en España
+    Pon nombre a lo que te pasa para sentirte mejor
+    Volver a empezar
+    Borges, 'Funes el memorioso' y la neurona Jennifer Aniston
 
-req9 = requests.get("https://elpais.com/ciencia/")
+
+```python
+req9 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup9 = BeautifulSoup(req9.text, 'html.parser')
+soup9 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup9.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    La primera simulación cuántica de un agujero de gusano abre una nueva puerta para entender el universo
+    Un fármaco experimental contra el alzhéimer confirma efectos positivos, pero puede estar detrás de la muerte de dos pacientes 
+    Escrito en las estrellas, ¿qué hemos aprendido de ellas?
+    El problema con los suelos: un mundo vivo, desconocido y muy desprotegido
+    Los hogares más pobres reducen su consumo de refrescos casi 11 litros en un año por la subida del IVA
+    Ronna, ronto, quetta y quecto, los nuevos prefijos para magnitudes extraordinarias
+    Por qué unas personas resisten el estrés mejor que otras 
+    Joseph Henrich, antropólogo evolutivo: “El mejor antídoto contra el supremacismo blanco es más ciencia y discutir ideas”
+    “Houston, tenemos un nuevo récord”: ‘Orion’ llega más lejos que ninguna otra nave diseñada para llevar astronautas
+    En busca de una solución para los dolores que se creían inventados
+    Un parásito ‘elige’ qué lobo será el líder de la manada
+    Pobreza en el Olimpo académico de EE UU: la huelga en la Universidad de California es ya una de las más grandes del país
+    Josefa Ros Velasco, filósofa: “Si alguien se aburre suele darse a la botella, cuando le pasa a un país suele darse una revuelta”
+    La insólita historia de la mujer que descubrió el primer antibiótico español
+    Hilda Hudson, la primera conferenciante en el gran congreso internacional de matemáticas
+    De León al espacio, pasando por una pequeña universidad pública: “Invirtiendo en ciencia se puede llegar a lo más alto”
+    Escrito en las estrellas, ¿qué hemos aprendido de ellas?
+    Hilda Hudson, la primera conferenciante en el gran congreso internacional de matemáticas
+    Por qué el entrelazamiento cuántico revoluciona nuestro entendimiento de la naturaleza
+    La órbita del telescopio ‘James Webb’ y el problema de los tres cuerpos
+    Cien años de las ecuaciones que expandieron el universo
+    Sangaku
+    El tamiz de Apolonio
+    La respuesta a la gran pregunta
+    El aroma de la inspiración y la piedra de la locura
+    ‘Los hijos de Hansen’ y la marginación social provocada por la lepra
+    Los fractales y su estructura narrativa como parte del relato
+    El amanecer de todo y el dinosaurio como animal modernista
+    Los universos paralelos de un visionario científico llamado Philip K. Dick
+    ¿Por qué son rocosos los satélites de los planetas gaseosos?
+    ¿Es nueva la producción de alimentos en macrogranjas? 
+    ¿Cómo se ve el cielo nocturno desde el ecuador?
+    ¿Por qué las olas van siempre hacia la playa?
+    Listeria: el patógeno que trae de cabeza a la industria alimentaria
+    Ciencia para derrumbar el mito de que la soja es mala para prevenir el cáncer de mama
+    Cuidado con las conservas caseras: es importante hacerlas bien
+    Una propuesta alternativa, barata y saludable a la nueva cesta de la compra
+    Aditivos, propiedades saludables y fechas de caducidad: guía para entender las etiquetas alimentarias
 
-req10 = requests.get("https://elpais.com/cultura/")
+
+```python
+req10 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup10 = BeautifulSoup(req10.text, 'html.parser')
+soup10 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup10.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
-req11 = requests.get("https://elpais.com/babelia/")
+```
+    Muere Christine McVie, cantante y teclista de la legendaria banda Fleetwood Mac, a los 79 años
+    El toque manual de campana español, declarado Patrimonio Cultural Inmaterial por la Unesco
+    Lo más escuchado en Spotify en 2022: solo Rosalía se coloca en España en una lista dominada por hombres latinos
+    ¿Cómo empezó?
+    ‘Company’ y el olor de la gran manzana
+    Charlie Watts: el bicho más raro de The Rolling Stones
+    Meter la mano en la vaca 
+    ¿Quedan cines de barrio? ¿Toda España se hizo artista en el confinamiento? ¿Importan los premios? Los números responden
+    ¿Se imaginan a la Generalitat criticando el día de Sant Jordi?
+    Almodóvar, en la lectura de la obra de Paco Bezerra: “Nunca imaginé que iba a asistir hoy a un acto contra la censura”
+    Un tatuaje y un bebé en el nombre de Mircea Cărtărescu
+    Angustias y vivencias de dos revolucionarios entre rejas 
+    Carolina Bang: “Los productores somos los andamios de la obra”
+    El ritmo de la revolución en Sudán salta de TikTok a Nueva York 
+    ¿Especulación, algoritmos locos o codicia? El misterio de los libros de segunda mano con precios desorbitados
+    Adonis vuelve a México de la mano de Sharjah
+    ‘Canina’: la maternidad con pelo y colmillos
+    Bono se desnuda emocionalmente en Madrid en su concierto más atípico
+    Cartel de Primavera Sound 2023, tanto Barcelona como Madrid: Rosalía, Kendrick Lamar, Blur o Depeche Mode
+    Rolling Blackouts Coastal Fever, la banda de rock más chisporroteante y luminosa de Australia
+    Santo Estevo, el monasterio al que todos le tienen fe
+    La Calahorra de siempre, más viva que nunca
+    La novela negra del siglo XXI no existe (sin Michael Connelly)
+    Disfruta en familia de 'El pequeño Mozart'
+    El MET Opera en Cine Yelmo a través de +Que Cine
+    Descubre la exposición 'Hijas del Nilo'
+    'Un animal en mi almohada' en el Teatro Fernán Gómez
+    La temida voltereta de la abolición de los toros en el sur de Francia quedó en un susto
+    Las obras de mejora de la plaza de toros de Las Ventas comienzan en diciembre
+    Actos a favor y en contra de los toros en Francia antes de que se debata su prohibición
+    Luis Miguel Leiro, picador premiado y desencantado: “Amo y respeto a los animales, pero el toro ha nacido para la lidia”
+    
+```python
+req11 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup11 = BeautifulSoup(req11.text, 'html.parser')
+soup11 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup11.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
-req12 = requests.get("https://elpais.com/deportes/")
+```
+    Lo nuevo de Rihanna, Bruce Springsteen, Niño de Elche (con Rosalía) y otras canciones de noviembre
+    ‘La última vez’, de Guillermo Martínez: un laberinto con final milagrosamente imprevisible
+    La lección magistral de Bob Dylan sobre Elvis
+    Cuando la furia de Twitter empaña un (interesante) debate narrativo
+    La curva de la semana: sube Cristina Morales, está aquí Aldo Manucio, baja Rosalía
+    Las nuevas coordenadas culturales de Latinoamérica
+    Las más bellas cartas de amor en castellano, las memorias de Marguerite Duras y otros libros de la semana
+    Amor mío queridísimo: la delicadeza sentimental de Felisberto Hernández
+    Ellas fueron modernas: cuatro artistas alemanas en la vorágine del cambio de siglo
+    Anacrónicas y audaces: las cantautoras latinas que renuevan la música de raíz
+    Los mejores libros infantiles y juveniles de noviembre
+    Lo que jode es la respuesta: la diferencia entre crítica, cancelación y censura
+    Edmonia, Frida y Amrita: tres mestizas
+    La basura se lee con anteojos
+    Mi otoño alemán
+    ‘Percusión’: una novela del pasado para recordar el futuro
+    Pere Gimferrer dentro del laberinto
+    ‘La brecha’: cómo cambiar un mundo mal hecho
+    ‘Tu sueño imperios han sido’: la historia boca arriba
+    Nona Fernández: “En Chile intentan que conciliemos el sueño otra vez”
+    Cristina Lucas: “Todo lo que se publicita está sobrevalorado”
+    Enrique Gracián: “Hay infinitos más grandes que otros”
+    Àlex Brendemühl: “La serie sobre el rey emérito no te deja indiferente”
+    Marta Etura: “De no ser actriz, habría sido matrona”
+    
+    
+```python
+req12 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup12 = BeautifulSoup(req12.text, 'html.parser')
+soup12 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup12.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    Última hora
+    El calendario
+    Universo Mundial
+    Las predicciones
+    La ‘newsletter’
+    Argentina se gana los octavos 
+    “Si Lewandowski fuera argentino, igual mete cinco”
+    México se queda a un gol del pase 
+    El mejor Messi juega, no golea 
+    Enrique ‘doce Copas’ Bermúdez
+    Los primeros 45 minutos
+    El estimulante legado de la Canadá campeona de la Davis
+    Tata Martino lleva a México a su gran fracaso en el Mundial
+    ¡Viva mi desgracia!
+    Así le hemos contado la eliminación de México del Mundial pese a ganarle a Arabia Saudí
+    Túnez desnuda a los suplentes de Francia
+    Una indesmayable Australia acaba con la insustancial Dinamarca y se mete en octavos
+    Mundial de Qatar 2022, ultimas noticias en directo | Francia-Polonia y Argentina-Australia, emparejamientos de octavos de final
+    Pelé se mantiene estable tras ser hospitalizado de manera inesperada en São Paulo
+    Dani Olmo: “Al fútbol se gana con la pelota en los pies”
+    Tragedia en el ciclismo: Davide Rebellin muere atropellado por un camión
+    La liga saudí de golf aterrizará el próximo año en España con un torneo en el histórico campo de Valderrama 
+    El imperio contraataca: EE UU derrota a Irán y se mete en octavos
+    Luis Enrique: “No vamos a especular contra Japón”
+    Las lecturas de Luis Enrique para el Mundial de Qatar (y la vida): un testimonio de Auschwitz y la sabiduría del estoicismo
+    Última hora del Mundial de Qatar: vídeo en directo | Fútbol Sapiens
+    Los seleccionadores de otros países se han dado cuenta:  “Nadie juega como España” 
+    ¿Por qué Argentina vive una situación límite contra Polonia?
+    La moneda que cambió para siempre el destino de España en los Mundiales
+    Cómo no perderte ni un solo minuto del Mundial
+    Las promesas del baloncesto español piden consejo a Sergio Scariolo
+    A toda mecha hacia el mundial de la consagración
+    Cómo disfrutar de la montaña con todas las garantías
+    Así te hemos contado la victoria de Australia sobre Dinamarca en el partido de la fase de grupos del Mundial de Qatar 2022
+    Una indesmayable Australia acaba con la insustancial Dinamarca y se mete en octavos
+    Enzo Fernández, el niño que pidió compasión para Messi
+    Bai, chino de doble oro
+    Argentina - Polonia: dónde ver este y todos los partidos desde el país latino
+    Los seleccionadores de otros países se han dado cuenta:  “Nadie juega como España” 
+    ¿Por qué Argentina vive una situación límite contra Polonia?
+    Tragedia en el ciclismo: Davide Rebellin muere atropellado por un camión
 
-req13 = requests.get("https://elpais.com/tecnologia/")
+```python
+req13 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup13 = BeautifulSoup(req13.text, 'html.parser')
+soup13 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup13.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
-req14 = requests.get("https://elpais.com/tecnologia/")
+```
+    La primera simulación cuántica de un agujero de gusano abre una nueva puerta para entender el universo
+    La Policía de San Francisco contará con robots con capacidad de matar
+    Ronna, ronto, quetta y quecto, los nuevos prefijos para magnitudes extraordinarias
+    El problema de la cultura ‘brogrammer’: “Se está excluyendo la mirada femenina de las soluciones tecnológicas que van a modelar el futuro”
+    Los ciberdelincuentes aprovechan el caos en Twitter para lanzar campañas de ‘phishing’
+    Damian Burns, director de Twitch Europa: “No me importaría que mi hija fuera ‘streamer’”
+    Adrian Hon, diseñador de videojuegos: “Las empresas y gobiernos usan juegos para controlarnos”
+    Mastodon: qué es y cómo funciona la red social en la que los usuarios deciden qué está permitido
+    Así serán las nuevas marcas de verificación en Twitter: azul, oro y gris
+    Gafas con funciones de un móvil, ‘Photoshop’ instantáneo y otros inminentes avances gracias a los nuevos chips
+    Elon Musk ya edita tuits y Twitter no se ha hundido aún, ¿qué hará en el futuro?
+    Elon Musk declara una “amnistía general” en Twitter para las cuentas suspendidas
+    Así está fallando Twitter: racismo, derechos de autor y desprotección en dictaduras
+    Quo Vadis, Elon Musk: por qué el colapso de Twitter no es un divertimento
+    Candid Wüest: “Si alguien ‘apaga’ Ucrania, probablemente haya una respuesta y eso no interesa porque todos los países son vulnerables”
+    La banca confía en tumbar en los tribunales el nuevo impuesto al sector
+    Los cuatro coches que llegaron a España en el año de los Juegos y la Expo
+    Ocho mil millones de cursis
+    Guía de viaje a la nube: una aventura con escalas
+    Árboles tuiteros contra la ceguera botánica
+    De Baudelaire a Midjourney: los nuevos “enemigos mortales del arte”
+    
+```python
+req14 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup14 = BeautifulSoup(req14.text, 'html.parser')
+soup14 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup14.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
+```
+    La primera simulación cuántica de un agujero de gusano abre una nueva puerta para entender el universo
+    La Policía de San Francisco contará con robots con capacidad de matar
+    Ronna, ronto, quetta y quecto, los nuevos prefijos para magnitudes extraordinarias
+    El problema de la cultura ‘brogrammer’: “Se está excluyendo la mirada femenina de las soluciones tecnológicas que van a modelar el futuro”
+    Los ciberdelincuentes aprovechan el caos en Twitter para lanzar campañas de ‘phishing’
+    Damian Burns, director de Twitch Europa: “No me importaría que mi hija fuera ‘streamer’”
+    Adrian Hon, diseñador de videojuegos: “Las empresas y gobiernos usan juegos para controlarnos”
+    Mastodon: qué es y cómo funciona la red social en la que los usuarios deciden qué está permitido
+    Así serán las nuevas marcas de verificación en Twitter: azul, oro y gris
+    Gafas con funciones de un móvil, ‘Photoshop’ instantáneo y otros inminentes avances gracias a los nuevos chips
+    Elon Musk ya edita tuits y Twitter no se ha hundido aún, ¿qué hará en el futuro?
+    Elon Musk declara una “amnistía general” en Twitter para las cuentas suspendidas
+    Así está fallando Twitter: racismo, derechos de autor y desprotección en dictaduras
+    Quo Vadis, Elon Musk: por qué el colapso de Twitter no es un divertimento
+    Candid Wüest: “Si alguien ‘apaga’ Ucrania, probablemente haya una respuesta y eso no interesa porque todos los países son vulnerables”
+    La banca confía en tumbar en los tribunales el nuevo impuesto al sector
+    Los cuatro coches que llegaron a España en el año de los Juegos y la Expo
+    Ocho mil millones de cursis
+    Guía de viaje a la nube: una aventura con escalas
+    Árboles tuiteros contra la ceguera botánica
+    De Baudelaire a Midjourney: los nuevos “enemigos mortales del arte”
 
-req15 = requests.get("https://elpais.com/gente/")
+```python
+req15 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup15 = BeautifulSoup(req15.text, 'html.parser')
+soup15 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup15.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
-req16 = requests.get("https://elpais.com/television/")
+```
+    Spotify Wrapped, el selfi musical que monopoliza la conversación en Twitter y acaricia el ego
+    Buckingham fuerza la dimisión de una asistente de la reina Camila por sus comentarios racistas
+    Los actores de ‘Love Actually’ se reencuentran: ¿qué ha sido de ellos 19 años después?
+    El último desfile de Antonio Alvarado se expone en el Museo del Traje
+    Antonio Alvarado, el museo como pasarela: su restrospectiva, en fotos
+    Tres reinas, una princesa y dos primeras damas se reúnen en Buckingham contra la violencia de género
+    Acuerdo de divorcio entre Kim Kardashian y Kanye West: custodia compartida y 200.000 dólares de pensión
+    La ‘baguette’ francesa, declarada patrimonio inmaterial de la Unesco
+    Los chocolates y bombones de Jordi Roca ponen un pie en Barcelona con una tienda efímera de Casa Cacao en un hotel de lujo
+    ¿Se puede ahorrar energía colocando alfombras, cortinas o mantas en el sofá? Los expertos responden
+    Xuso Jones: “Tengo muchos más seguidores por mis ‘tips’ de limpieza que por mi música. Y me encanta”
+    Sara Carbonero, tras recibir el alta hospitalaria por su operación: “Me siento en paz y agradecida con la vida”
+    La jueza archiva la denuncia de María León contra los policías que la detuvieron en Sevilla
+    Una selección imprescindible de productos con descuento: comprar en Black Friday nunca fue tan fácil
+    Achilles Ion Gabriel, el surrealista de Camper: “No hago zapatos para museos, sino para la gente” 
+    El regreso discreto de Mario Testino: “A mi edad, no creo que mi percepción de la moda sea la correcta ni la que el mundo necesita”
+    Manuel Outumuro toca cumbre
+    Diane de Beauvau-Craon, la última princesa rebelde: “Me drogué mucho, bebí mucho alcohol, me acosté con muchos gais y aquí sigo”
+    En los secaderos ancestrales del pimentón de la Vera, el oro rojo de Cáceres
+    Las abuelas que han viralizado el arte de elaborar la pasta italiana 
+    Humaredas mediáticas, monotonía, discursos vacíos y otras amenazas y retos de la gastronomía 
+    Sumer, el ‘kebab’ artesano de barrio en Madrid que acoge tertulias filosóficas
+    El robot de cocina más famoso del mundo ha conquistado ya tres millones de hogares españoles
+    
+    
+```python
+req16 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup16 = BeautifulSoup(req16.text, 'html.parser')
+soup16 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup16.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
-req17 = requests.get("https://elpais.com/eps/")
+```
+    Lorena Castell, ganadora de ‘MasterChef Celebrity’: “Me gusta trabajar bajo presión, me pone las pilas”
+    Borja Cobeaga: “Tardé más en sacarme el carné que en hacer esta serie”
+    Lorena Castell, ganadora de ‘MasterChef Celebrity 7’
+    ‘El presidente: juego de la corrupción’, los entresijos del fútbol
+    ‘No me gusta conducir’: en qué se parece hacer una serie a aprender a conducir
+    ‘Ummo’, un guirigay intergaláctico
+    Adiós a Ellen Pompeo, la funcionaria de la tele
+    Radiografía de ‘El hormiguero’: entretenimiento blanco de éxito… y polémicas por machismo
+    Eliseo, ‘el encargado’ corrupto que seduce y repele en Argentina 
+    ‘Masterchef Celebrity’ ya tiene a sus dos finalistas, tras la “rendición” de Patricia Conde
+    ‘The Peripheral’, realidad, ficción y un futuro ciberpunk con los creadores de ‘Westworld’
+    El ‘bon vivant’ acorralado de la FIFA que grabó a sus amigos
+    Leonor Lavado: “Somos como hablamos: la voz es nuestro ADN psicológico”
+    ¿Qué ocurre tras la edad de oro de la televisión? El mismo oro, aunque enterrado bajo una oferta masiva
+    ‘La ruta’: por qué nos invade la nostalgia del ‘after’
+    La veteranía de María del Monte y Francisco se mide con la juventud de María Terremoto y Juanlu Montoya en los premios Radiolé  
+    Regreso al hospital terrorífico de Lars von Trier
+    ¿Qué ver hoy en TV? Miércoles 30 de noviembre de 2022
+    Las series de agosto de 2022: ‘La casa del dragón’ en HBO Max; ‘Sandman’ en Netflix y otras
+    Nueve capítulos para recordar ‘The Wire’ en su 20º aniversario
+    Harry Palmer: el tercer vértice del mágico triángulo de espías británicos
+    Las series de junio de 2022: ‘The Boys’ en Amazon Prime Video; ‘Peaky Blinders’ en Netflix y otras
+    
+```python
+req17 = requests.get("https://elpais.com/internacional")
 # Si el estatus code no es 200 no se puede leer la página
 if (req.status_code != 200):
  raise Exception("No se puede hacer Web Scraping en"+ URL)
-soup17 = BeautifulSoup(req17.text, 'html.parser')
+soup17 = BeautifulSoup(req2.text, 'html.parser')
+```
 
-tags = soup17.findAll("h2")
 
+
+```python
+tags = soup2.findAll("h2")
+```
+
+
+
+```python
 for h2 in tags:
     print(h2.text)
     resultados.append(h2.text)
-
+    
 
 os.system("clear")
 
@@ -675,6 +1113,9 @@ str_match = [s for s in resultados if "sexo" in s]
 print("\n".join(str_match))
 
 ```
+En el texto anterior, ademas de imprimir la informacion, guarde toda la información obtenida por las URLs en una variable llamada Results. A continuación vamos buscar palabras claves dentro de los textos obtenidos de antemano, además, usaré la libreria Termcolor para modificar el color de los textos
+```
+
 
     Pilar Bonet dedica a los periodistas que cubren la guerra de Ucrania el premio Francisco Cerecedo de periodismo 
     Vila-real concede la medalla de oro al colegio de los carmelitas dos meses después de destaparse un caso de abusos
