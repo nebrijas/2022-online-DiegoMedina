@@ -10,6 +10,9 @@ Esta memoria tiene como fin recopilar los pasos que seguí para realizar las act
 
 [Repositorio](https://github.com/nebrijas/2022-online-DiegoMedina)
 
+
+[Github pages](https://nebrijas.github.io/2022-online-DiegoMedina/)
+
 ***
 
 ## Actividad dirigida 1
