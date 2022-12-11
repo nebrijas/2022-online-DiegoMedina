@@ -5,6 +5,8 @@
 
 El objetivo de esta actividad dirigida, es utilizar **"Pandas"**, la librería de [Phyton](docs/ad4.ipynb), para analisar y extraer datos de Covid 19 en tiempo real.
 
+Una de las principales metas que se busca alcanzár con este ejercicio, es traducir y limpiar los datos encontrados en distintos medios para asi, reinterpretarlos como de forma grafica.
+
 
 La URL: https://api.covid19api.com/countries
 
@@ -2203,3 +2205,5 @@ df_ec.set_index('Date')['Cases'].plot(title= "Casos de Covid19 en Ecuador")
 ```python
 
 ```
+
+En conclusión, esta actividad puso a prueba todos los conocimientos aprendidos durante la materia, desde la utilización de github, programación, web scraping y finalemte visualización de datos, uno de los diferenciales de este ejercicio versus otros metodos de representación grafica es la posibilidad de actualizar el contenido en tiempo real y obtenerlos datos en poco tiempo. 
