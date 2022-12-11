@@ -1528,7 +1528,7 @@ df_co.set_index('Date')['Cases'].plot()
 
 
     
-![png](output_56_2.png)
+![Grafica 1](Output_50.png)
     
 
 
@@ -1548,7 +1548,7 @@ df_co.set_index('Date')['Cases'].plot(title= "Casos de Covid19 en Colombia")
 
 
     
-![png](output_58_1.png)
+![Grafica 2](Output_51.png)
     
 
 
@@ -1765,7 +1765,7 @@ df_es.set_index('Date')['Cases'].plot(title= "Casos de Covid19 en España")
 
 
     
-![png](output_64_1.png)
+![Grafica 3](Output_53.png)
     
 
 
@@ -1980,7 +1980,7 @@ df_do.set_index('Date')['Cases'].plot(title= "Casos de Covid19 en República Dom
 
 
     
-![png](output_69_1.png)
+![Grafica 4](Output_54.png)
     
 
 
@@ -2195,7 +2195,7 @@ df_ec.set_index('Date')['Cases'].plot(title= "Casos de Covid19 en Ecuador")
 
 
     
-![png](output_75_1.png)
+![Grafica 5](Output_55.png)
     
 
 
